@@ -2,8 +2,8 @@
 
 namespace App\Mail;
 
-use App\Models\Admin;
 use App\Models\Customer;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -17,16 +17,16 @@ class CustomerCreated extends Mailable
 
     protected Customer $customer;
     protected string $password;
-    protected Admin $admin;
+    protected User $admin;
 
     /**
      * Create a new message instance.
      *
      * @param Customer $customer
      * @param string $password
-     * @param Admin $admin
+     * @param User $admin
      */
-    public function __construct(Customer $customer, string $password, Admin $admin)
+    public function __construct(Customer $customer, string $password, User $admin)
     {
         $this->customer = $customer;
         $this->password = $password;

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
+use App\Models\User;
 use Backpack\PermissionManager\app\Models\Permission;
 use Backpack\PermissionManager\app\Models\Role;
 use Illuminate\Database\Seeder;
@@ -56,7 +56,7 @@ class AdminSeeder extends Seeder
      */
     protected function admin(Role $role): void
     {
-        $admin = Admin::createOrFirst([
+        $admin = User::createOrFirst([
             'email' => 'admin@admin.com'
         ], [
             'name' => 'Admin',
