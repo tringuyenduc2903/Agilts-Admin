@@ -30,6 +30,7 @@ class Customer extends Authenticatable implements MustVerifyEmail
         'email',
         'phone_number',
         'password',
+        'timezone',
     ];
 
     /**

@@ -31,7 +31,6 @@ class UserCrudController extends \Backpack\PermissionManager\app\Http\Controller
     {
         parent::setup();
 
-        CRUD::setRoute(backpack_url('admin'));
         CRUD::operation(['show', 'list'], fn() => CRUD::removeButton('delete'));
 
         denyAllAccess(Permission::ADMIN_CRUD);

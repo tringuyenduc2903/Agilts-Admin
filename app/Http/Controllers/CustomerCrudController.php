@@ -107,6 +107,13 @@ class CustomerCrudController extends CrudController
             ->label(trans('Gender'))
             ->type('select2_from_array')
             ->options(Gender::map());
+        CRUD::column('timezone')
+            ->label(trans('Timezone'))
+            ->type('select2_from_array')
+            ->options(array_combine(
+                timezone_identifiers_list(),
+                timezone_identifiers_list()
+            ));
 
         // if the model has timestamps, add columns for created_at and updated_at
         if (CRUD::get('show.timestamps') && CRUD::getModel()->usesTimestamps()) {
@@ -151,5 +158,12 @@ class CustomerCrudController extends CrudController
             ->label(trans('Gender'))
             ->type('select2_from_array')
             ->options(Gender::map());
+        CRUD::field('timezone')
+            ->label(trans('Timezone'))
+            ->type('select2_from_array')
+            ->options(array_combine(
+                timezone_identifiers_list(),
+                timezone_identifiers_list()
+            ));
     }
 }

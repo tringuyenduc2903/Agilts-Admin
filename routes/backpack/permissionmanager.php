@@ -22,5 +22,5 @@ Route::prefix(config('backpack.base.route_prefix', 'admin'))
     ->group(function () {
         Route::crud('permission', PermissionCrudController::class);
         Route::crud('role', RoleCrudController::class);
-        Route::crud('admin', UserCrudController::class);
+        Route::crud('user', UserCrudController::class);
     });

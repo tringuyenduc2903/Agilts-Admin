@@ -29,7 +29,7 @@
                         [
                             'permission' => Permission::ADMIN_CRUD,
                             'title' => trans('backpack::permissionmanager.users'),
-                            'link' => backpack_url('admin'),
+                            'link' => backpack_url('user'),
                         ],
                         [
                             'permission' => Permission::ROLE_CRUD,

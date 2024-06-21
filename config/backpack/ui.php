@@ -35,7 +35,7 @@ return [
 
     // Date & Datetime Format Syntax: https://carbon.nesbot.com/docs/#api-localization
     'default_date_format' => env('APP_TIME_FORMAT_SHORT', 'D MMM YYYY'),
-    'default_datetime_format' => env('APP_TIME_FORMAT_SHORT', 'D MMM YYYY, HH:mm'),
+    'default_datetime_format' => env('APP_TIME_FORMAT_LONG', 'D MMM YYYY, HH:mm'),
 
     // Direction, according to language
     // (left-to-right vs right-to-left)

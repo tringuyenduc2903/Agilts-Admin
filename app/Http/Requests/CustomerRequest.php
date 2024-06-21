@@ -59,6 +59,12 @@ class CustomerRequest extends FormRequest
                 'integer',
                 Rule::in(Gender::keys()),
             ],
+            'timezone' => [
+                'required',
+                'string',
+                'max:30',
+                Rule::in(timezone_identifiers_list()),
+            ]
         ];
     }
 }
