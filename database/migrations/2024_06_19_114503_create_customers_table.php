@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->unsignedTinyInteger('gender')->nullable();
             $table->string('email', 100)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('phone_number', 12)->unique()->nullable();
+            $table->string('phone_number', 13)->unique()->nullable();
             $table->timestamp('phone_number_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
