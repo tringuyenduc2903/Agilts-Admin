@@ -14,4 +14,5 @@ class Permission extends Enum
     const ROLE_CRUD = 'role_crud';
     const PERMISSION_CRUD = 'permission_crud';
     const CUSTOMER_CRUD = 'customer_crud';
+    const BRANCH_CRUD = 'branch_crud';
 }

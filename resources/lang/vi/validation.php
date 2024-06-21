@@ -154,5 +154,15 @@ return [
         ],
     ],
     'attributes' => [
+        'name' => 'tên',
+        'branch' => 'chi nhánh',
+        'password' => 'mật khẩu',
+        'province' => 'tỉnh/thành phố',
+        'district' => 'quận/huyện/thị xã',
+        'ward' => 'xã/phường/thị trấn',
+        'address_detail' => 'địa chỉ chi tiết',
+        'phone_number' => 'số điện thoại',
+        'birthday' => 'ngày sinh',
+        'gender' => 'giới tính',
     ],
 ];

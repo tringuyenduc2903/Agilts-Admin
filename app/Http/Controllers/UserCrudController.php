@@ -3,21 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Permission;
+use App\Models\Branch;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Backpack\PermissionManager\app\Http\Controllers\UserCrudController;
 use Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation;
+use Backpack\Pro\Http\Controllers\Operations\FetchOperation;
 use Backpack\Pro\Http\Controllers\Operations\TrashOperation;
+use Illuminate\Validation\Rule;
 
 /**
- * Class AdminCrudController
+ * Class UserCrudController
  * @package App\Http\Controllers
  * @property-read CrudPanel $crud
  */
-class AdminCrudController extends UserCrudController
+class UserCrudController extends \Backpack\PermissionManager\app\Http\Controllers\UserCrudController
 {
     use TrashOperation;
     use BulkTrashOperation;
+    use FetchOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -46,6 +49,8 @@ class AdminCrudController extends UserCrudController
             ->type('email');
         CRUD::column('email_verified_at')
             ->label(trans('Email verified at'));
+        CRUD::column('branch')
+            ->label(trans('Branch'));
         CRUD::column('roles_permissions')
             ->label(trans('backpack::permissionmanager.user_role_permission'))
             ->type('checklist_dependency')
@@ -88,6 +93,10 @@ class AdminCrudController extends UserCrudController
     {
         parent::setupListOperation();
 
+        CRUD::column('branch')
+            ->label(trans('Branch'))
+            ->after('email');
+
         CRUD::filter('name')
             ->label(trans('backpack::permissionmanager.name'))
             ->type('text')
@@ -96,6 +105,12 @@ class AdminCrudController extends UserCrudController
             ->label(trans('backpack::permissionmanager.email'))
             ->type('text')
             ->after('name');
+        CRUD::filter('branch_id')
+            ->label(trans('Branch'))
+            ->type('select2_ajax')
+            ->values(backpack_url('user/fetch/branch'))
+            ->method('POST')
+            ->after('email');
     }
 
     /**
@@ -103,12 +118,21 @@ class AdminCrudController extends UserCrudController
      */
     protected function addUserFields()
     {
+        CRUD::setValidation(['branch' => [
+            'required',
+            'integer',
+            Rule::exists(Branch::class, 'id'),
+        ]]);
         CRUD::field('name')
             ->label(trans('backpack::permissionmanager.name'))
             ->tab(trans('User info'));
         CRUD::field('email')
             ->label(trans('backpack::permissionmanager.email'))
             ->type('email')
+            ->tab(trans('User info'));
+        CRUD::field('branch')
+            ->label(trans('Branch'))
+            ->inline_create(true)
             ->tab(trans('User info'));
         CRUD::field('password')
             ->label(trans('backpack::permissionmanager.password'))
@@ -145,5 +169,10 @@ class AdminCrudController extends UserCrudController
             ])
             ->tab(trans('User role'))
             ->field_unique_name('user_role_permission');
+    }
+
+    protected function fetchBranch()
+    {
+        return $this->fetch(Branch::class);
     }
 }

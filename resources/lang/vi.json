@@ -27,7 +27,7 @@
     "Deleted at": "Đã xoá lúc",
     "User info": "Thông tin người dùng",
     "User role": "Quyền của người dùng",
-    "Customers": "Khách hàng",
+    "Customers": "Các khách hàng",
     "Customer": "Khách hàng",
     "All customers": "Tất cả khách hàng",
     "Phone number": "Số điện thoại",
@@ -45,5 +45,13 @@
     "The password is randomly generated and can only be viewed by you via email.": "Mật khẩu được tạo ngẫu nhiên và chỉ bạn có thể xem qua email.",
     "For security reasons, please change your password after a successful login!": "Vì lý do bảo mật, vui lòng đổi mật khẩu của bạn sau khi đăng nhập thành công!",
     "(and :count more errors)": "(và :count lỗi khác)",
-    "(and :count more error)": "(và :count lỗi)"
+    "(and :count more error)": "(và :count lỗi)",
+    "Name": "Tên",
+    "Province": "Tỉnh/Thành phố",
+    "District": "Quận/Huyện/Thị xã",
+    "Ward": "Xã/Phường/Thị trấn",
+    "Address detail": "Địa chỉ chi tiết",
+    "Branches": "Các chi nhánh",
+    "Branch": "Chi nhánh",
+    "Others": "Khác"
 }

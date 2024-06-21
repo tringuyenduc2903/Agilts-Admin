@@ -43,6 +43,16 @@
                         ],
                     ],
                 ],
+                [
+                    'title' => trans('Others'),
+                    'items' => [
+                        [
+                            'permission' => Permission::BRANCH_CRUD,
+                            'title' => trans('Branches'),
+                            'link' => backpack_url('branch'),
+                        ],
+                    ],
+                ],
             ],
         ],
     ];
