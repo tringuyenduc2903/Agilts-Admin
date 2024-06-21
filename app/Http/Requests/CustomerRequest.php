@@ -45,7 +45,7 @@ class CustomerRequest extends FormRequest
                 'nullable',
                 'string',
                 'min:12',
-                'max:14',
+                'max:13',
                 Rule::unique(Customer::class)->ignore($this->input('id')),
             ],
             'birthday' => [
