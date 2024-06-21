@@ -64,7 +64,7 @@ class CustomerRequest extends FormRequest
                 'string',
                 'max:30',
                 Rule::in(timezone_identifiers_list()),
-            ]
+            ],
         ];
     }
 }

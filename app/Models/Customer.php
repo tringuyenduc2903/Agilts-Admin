@@ -51,7 +51,9 @@ class Customer extends Authenticatable implements MustVerifyEmail
     public function genderPreview(): Attribute
     {
         return Attribute::get(
-            fn(): ?string => isset($this->gender) ? Gender::valueForKey($this->gender) : null
+            fn(): ?string => isset($this->gender)
+                ? Gender::valueForKey($this->gender)
+                : null
         );
     }
 
@@ -64,6 +66,7 @@ class Customer extends Authenticatable implements MustVerifyEmail
     {
         return [
             'password' => 'hashed',
+            'remember_token' => 'hashed',
         ];
     }
 }
