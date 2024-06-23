@@ -12,6 +12,7 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 use Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation;
 use Backpack\Pro\Http\Controllers\Operations\InlineCreateOperation;
 use Backpack\Pro\Http\Controllers\Operations\TrashOperation;
@@ -52,6 +53,11 @@ class BranchCrudController extends CrudController
     {
         $this->setupListOperation();
 
+        CRUD::column('addresses')
+            ->label(trans('Addresses'))
+            ->type('repeatable')
+            ->subfields($this->subfields());
+
         CRUD::column('users')
             ->label(trans('backpack::permissionmanager.users'));
 
@@ -74,30 +80,64 @@ class BranchCrudController extends CrudController
     {
         CRUD::column('name')
             ->label(trans('Name'));
-        CRUD::column('province')
-            ->label(trans('Province'));
-        CRUD::column('district')
-            ->label(trans('District'));
-        CRUD::column('ward')
-            ->label(trans('Ward'));
-        CRUD::column('address_detail')
-            ->label(trans('Address detail'));
 
         CRUD::filter('name')
             ->label(trans('Name'))
             ->type('text');
-        CRUD::filter('province')
-            ->label(trans('Province'))
-            ->type('text');
-        CRUD::filter('district')
-            ->label(trans('District'))
-            ->type('text');
-        CRUD::filter('ward')
-            ->label(trans('Ward'))
-            ->type('text');
-        CRUD::filter('address_detail')
-            ->label(trans('Address detail'))
-            ->type('text');
+    }
+
+    /**
+     * @return array[]
+     */
+    protected function subfields(): array
+    {
+        return [[
+            'name' => 'default',
+            'label' => trans('Set as default'),
+            'type' => 'switch',
+            'wrapper' => [
+                'class' => 'form-group col-sm-12 d-flex justify-content-end',
+            ],
+        ], [
+            'name' => 'type',
+            'label' => trans('Type'),
+            'type' => 'select2_from_array',
+            'options' => \App\Enums\Address\Branch::values(),
+            'allows_null' => false,
+        ], [
+            'name' => 'country',
+            'label' => trans('Country'),
+            'type' => 'text',
+            'default' => 'Việt Nam',
+            'wrapper' => [
+                'class' => 'form-group col-sm-12 col-md-6 mb-3',
+            ],
+        ], [
+            'name' => 'province',
+            'label' => trans('Province'),
+            'type' => 'text',
+            'wrapper' => [
+                'class' => 'form-group col-sm-12 col-md-6',
+            ],
+        ], [
+            'name' => 'district',
+            'label' => trans('District'),
+            'type' => 'text',
+            'wrapper' => [
+                'class' => 'form-group col-sm-12 col-md-6',
+            ],
+        ], [
+            'name' => 'ward',
+            'label' => trans('Ward'),
+            'type' => 'text',
+            'wrapper' => [
+                'class' => 'form-group col-sm-12 col-md-6',
+            ],
+        ], [
+            'name' => 'address_detail',
+            'label' => trans('Address detail'),
+            'type' => 'textarea',
+        ]];
     }
 
     /**
@@ -119,16 +159,16 @@ class BranchCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+        Widget::add()
+            ->type('script')
+            ->content(resource_path('assets/js/admin/forms/branch.js'));
+
         CRUD::setValidation(BranchRequest::class);
         CRUD::field('name')
             ->label(trans('Name'));
-        CRUD::field('province')
-            ->label(trans('Province'));
-        CRUD::field('district')
-            ->label(trans('District'));
-        CRUD::field('ward')
-            ->label(trans('Ward'));
-        CRUD::field('address_detail')
-            ->label(trans('Address detail'));
+        CRUD::field('addresses')
+            ->label(trans('Addresses'))
+            ->type('repeatable')
+            ->subfields($this->subfields());
     }
 }

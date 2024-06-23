@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\Address\Branch;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BranchRequest extends FormRequest
 {
@@ -29,25 +31,42 @@ class BranchRequest extends FormRequest
                 'string',
                 'max:255',
             ],
-            'province' => [
+            'addresses' => [
                 'required',
-                'string',
-                'max:50',
             ],
-            'district' => [
+            'addresses.*.default' => [
                 'required',
-                'string',
-                'max:50',
+                'boolean',
             ],
-            'ward' => [
+            'addresses.*.type' => [
                 'required',
-                'string',
-                'max:50',
+                'integer',
+                Rule::in(Branch::keys()),
             ],
-            'address_detail' => [
+            'addresses.*.country' => [
                 'required',
                 'string',
                 'max:100',
+            ],
+            'addresses.*.province' => [
+                'required',
+                'string',
+                'max:100',
+            ],
+            'addresses.*.district' => [
+                'required',
+                'string',
+                'max:100',
+            ],
+            'addresses.*.ward' => [
+                'required',
+                'string',
+                'max:100',
+            ],
+            'addresses.*.address_detail' => [
+                'required',
+                'string',
+                'max:255',
             ],
         ];
     }

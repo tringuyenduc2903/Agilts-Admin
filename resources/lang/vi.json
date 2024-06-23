@@ -47,6 +47,7 @@
     "(and :count more errors)": "(và :count lỗi khác)",
     "(and :count more error)": "(và :count lỗi)",
     "Name": "Tên",
+    "Addresses": "Các địa chỉ",
     "Province": "Tỉnh/Thành phố",
     "District": "Quận/Huyện/Thị xã",
     "Ward": "Xã/Phường/Thị trấn",
@@ -54,5 +55,10 @@
     "Branches": "Các chi nhánh",
     "Branch": "Chi nhánh",
     "Others": "Khác",
-    "Timezone": "Múi giờ"
+    "Timezone": "Múi giờ",
+    "Set as default": "Đặt làm mặc định",
+    "Type": "Kiểu",
+    "Country": "Quốc gia",
+    "Shop": "Cửa hàng",
+    "Warehouse": "Kho"
 }
