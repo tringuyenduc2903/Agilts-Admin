@@ -60,5 +60,7 @@
     "Type": "Kiểu",
     "Country": "Quốc gia",
     "Shop": "Cửa hàng",
-    "Warehouse": "Kho"
+    "Warehouse": "Kho",
+    "Home": "Nhà riêng",
+    "Company": "Công ty"
 }

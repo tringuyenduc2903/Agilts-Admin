@@ -6,6 +6,7 @@ use App\Enums\Gender;
 use App\Enums\Permission;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
+use App\Trait\Controllers\AddressesFieldTrait;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -13,6 +14,7 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 use Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation;
 use Backpack\Pro\Http\Controllers\Operations\TrashOperation;
 
@@ -29,6 +31,7 @@ class CustomerCrudController extends CrudController
     use ShowOperation;
     use TrashOperation;
     use BulkTrashOperation;
+    use AddressesFieldTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -114,6 +117,10 @@ class CustomerCrudController extends CrudController
                 timezone_identifiers_list(),
                 timezone_identifiers_list()
             ));
+        CRUD::column('addresses')
+            ->label(trans('Addresses'))
+            ->type('repeatable')
+            ->subfields($this->addressesSubfields(\App\Enums\Address\Customer::values()));
 
         // if the model has timestamps, add columns for created_at and updated_at
         if (CRUD::get('show.timestamps') && CRUD::getModel()->usesTimestamps()) {
@@ -143,6 +150,10 @@ class CustomerCrudController extends CrudController
      */
     public function setupCreateOperation()
     {
+        Widget::add()
+            ->type('script')
+            ->content(resource_path('assets/js/admin/forms/address.js'));
+
         CRUD::setValidation(CustomerRequest::class);
         CRUD::field('name')
             ->label(trans('backpack::permissionmanager.name'));
@@ -165,5 +176,9 @@ class CustomerCrudController extends CrudController
                 timezone_identifiers_list(),
                 timezone_identifiers_list()
             ));
+        CRUD::field('addresses')
+            ->label(trans('Addresses'))
+            ->type('repeatable')
+            ->subfields($this->addressesSubfields(\App\Enums\Address\Customer::values()));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\Permission;
 use App\Http\Requests\BranchRequest;
 use App\Models\Branch;
+use App\Trait\Controllers\AddressesFieldTrait;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -31,6 +32,7 @@ class BranchCrudController extends CrudController
     use TrashOperation;
     use BulkTrashOperation;
     use InlineCreateOperation;
+    use AddressesFieldTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -56,7 +58,7 @@ class BranchCrudController extends CrudController
         CRUD::column('addresses')
             ->label(trans('Addresses'))
             ->type('repeatable')
-            ->subfields($this->subfields());
+            ->subfields($this->addressesSubfields(\App\Enums\Address\Branch::values()));
 
         CRUD::column('users')
             ->label(trans('backpack::permissionmanager.users'));
@@ -87,60 +89,6 @@ class BranchCrudController extends CrudController
     }
 
     /**
-     * @return array[]
-     */
-    protected function subfields(): array
-    {
-        return [[
-            'name' => 'default',
-            'label' => trans('Set as default'),
-            'type' => 'switch',
-            'wrapper' => [
-                'class' => 'form-group col-sm-12 d-flex justify-content-end',
-            ],
-        ], [
-            'name' => 'type',
-            'label' => trans('Type'),
-            'type' => 'select2_from_array',
-            'options' => \App\Enums\Address\Branch::values(),
-            'allows_null' => false,
-        ], [
-            'name' => 'country',
-            'label' => trans('Country'),
-            'type' => 'text',
-            'default' => 'Việt Nam',
-            'wrapper' => [
-                'class' => 'form-group col-sm-12 col-md-6 mb-3',
-            ],
-        ], [
-            'name' => 'province',
-            'label' => trans('Province'),
-            'type' => 'text',
-            'wrapper' => [
-                'class' => 'form-group col-sm-12 col-md-6',
-            ],
-        ], [
-            'name' => 'district',
-            'label' => trans('District'),
-            'type' => 'text',
-            'wrapper' => [
-                'class' => 'form-group col-sm-12 col-md-6',
-            ],
-        ], [
-            'name' => 'ward',
-            'label' => trans('Ward'),
-            'type' => 'text',
-            'wrapper' => [
-                'class' => 'form-group col-sm-12 col-md-6',
-            ],
-        ], [
-            'name' => 'address_detail',
-            'label' => trans('Address detail'),
-            'type' => 'textarea',
-        ]];
-    }
-
-    /**
      * Define what happens when the Update operation is loaded.
      *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
@@ -161,7 +109,7 @@ class BranchCrudController extends CrudController
     {
         Widget::add()
             ->type('script')
-            ->content(resource_path('assets/js/admin/forms/branch.js'));
+            ->content(resource_path('assets/js/admin/forms/address.js'));
 
         CRUD::setValidation(BranchRequest::class);
         CRUD::field('name')
@@ -169,6 +117,6 @@ class BranchCrudController extends CrudController
         CRUD::field('addresses')
             ->label(trans('Addresses'))
             ->type('repeatable')
-            ->subfields($this->subfields());
+            ->subfields($this->addressesSubfields(\App\Enums\Address\Branch::values()));
     }
 }

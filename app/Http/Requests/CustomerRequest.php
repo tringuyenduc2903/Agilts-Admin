@@ -65,6 +65,40 @@ class CustomerRequest extends FormRequest
                 'max:30',
                 Rule::in(timezone_identifiers_list()),
             ],
+            'addresses.*.default' => [
+                'required',
+                'boolean',
+            ],
+            'addresses.*.type' => [
+                'required',
+                'integer',
+                Rule::in(\App\Enums\Address\Customer::keys()),
+            ],
+            'addresses.*.country' => [
+                'required',
+                'string',
+                'max:100',
+            ],
+            'addresses.*.province' => [
+                'required',
+                'string',
+                'max:100',
+            ],
+            'addresses.*.district' => [
+                'required',
+                'string',
+                'max:100',
+            ],
+            'addresses.*.ward' => [
+                'required',
+                'string',
+                'max:100',
+            ],
+            'addresses.*.address_detail' => [
+                'required',
+                'string',
+                'max:255',
+            ],
         ];
     }
 }
