@@ -56,6 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'password' => 'hashed',
+            'remember_token' => 'hashed',
         ];
     }
 }

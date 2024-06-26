@@ -90,7 +90,7 @@ class CustomerRequest extends FormRequest
                 'max:100',
             ],
             'addresses.*.ward' => [
-                'required',
+                'nullable',
                 'string',
                 'max:100',
             ],

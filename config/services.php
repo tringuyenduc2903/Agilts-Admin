@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'api_url' => [
+        'address' => env('API_ADDRESS'),
+    ],
+
+    'api_time' => [
+        'cache' => env('API_CACHE_TIME'),
+    ],
+
 ];

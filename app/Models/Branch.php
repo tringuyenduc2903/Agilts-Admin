@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Branch extends Model
 {
+    use HasFactory;
     use SoftDeletes;
     use CrudTrait;
 
@@ -20,6 +22,7 @@ class Branch extends Model
      */
     protected $fillable = [
         'name',
+        'phone_number',
     ];
 
     /**

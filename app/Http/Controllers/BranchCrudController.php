@@ -82,6 +82,9 @@ class BranchCrudController extends CrudController
     {
         CRUD::column('name')
             ->label(trans('Name'));
+        CRUD::column('phone_number')
+            ->label(trans('Phone number'))
+            ->type('phone');
 
         CRUD::filter('name')
             ->label(trans('Name'))
@@ -114,6 +117,9 @@ class BranchCrudController extends CrudController
         CRUD::setValidation(BranchRequest::class);
         CRUD::field('name')
             ->label(trans('Name'));
+        CRUD::field('phone_number')
+            ->label(trans('Phone number'))
+            ->type('text');
         CRUD::field('addresses')
             ->label(trans('Addresses'))
             ->type('repeatable')

@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use App\Models\User;
 use Backpack\PermissionManager\app\Models\Permission;
 use Backpack\PermissionManager\app\Models\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class AdminSeeder extends Seeder
 {
@@ -61,10 +63,13 @@ class AdminSeeder extends Seeder
         ], [
             'name' => 'Admin',
             'password' => 'admin',
+            'remember_token' => Str::random(10),
         ]);
 
         $admin->markEmailAsVerified();
 
         $admin->assignRole($role);
+
+        $admin->branch()->associate(Branch::first())->save();
     }
 }

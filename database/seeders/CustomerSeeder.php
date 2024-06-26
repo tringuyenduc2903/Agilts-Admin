@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
 use App\Models\Customer;
 use Illuminate\Database\Seeder;
 
@@ -12,9 +13,27 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
-        Customer::factory(10)->create();
-        Customer::factory(10)->emailUnverified()->create();
-        Customer::factory(10)->phoneNumberUnverified()->create();
-        Customer::factory(10)->trashed()->create();
+        Customer::factory(5)->create()->each(function (Customer $customer) {
+            $this->addresses($customer);
+        });
+
+        Customer::factory(5)->emailUnverified()->create()->each(function (Customer $customer) {
+            $this->addresses($customer);
+        });
+
+        Customer::factory(5)->phoneNumberUnverified()->create()->each(function (Customer $customer) {
+            $this->addresses($customer);
+        });
+    }
+
+    /**
+     * @param Customer $customer
+     * @return void
+     */
+    protected function addresses(Customer $customer): void
+    {
+        $customer->addresses()->saveMany(
+            Address::factory(2)->customer()->make()
+        );
     }
 }

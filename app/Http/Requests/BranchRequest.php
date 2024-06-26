@@ -31,6 +31,13 @@ class BranchRequest extends FormRequest
                 'string',
                 'max:255',
             ],
+            'phone_number' => [
+                'nullable',
+                'string',
+                'min:8',
+                'max:10',
+                Rule::unique(\App\Models\Branch::class)->ignore($this->input('id')),
+            ],
             'addresses' => [
                 'required',
             ],
@@ -59,7 +66,7 @@ class BranchRequest extends FormRequest
                 'max:100',
             ],
             'addresses.*.ward' => [
-                'required',
+                'nullable',
                 'string',
                 'max:100',
             ],
