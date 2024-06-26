@@ -168,5 +168,6 @@ return [
         'birthday' => 'ngày sinh',
         'gender' => 'giới tính',
         'addresses' => 'các địa chỉ',
+        'timezone' => 'múi giờ',
     ],
 ];
