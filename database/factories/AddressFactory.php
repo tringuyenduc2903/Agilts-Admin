@@ -30,8 +30,8 @@ class AddressFactory extends Factory
             'province' => $province['full_name'],
             'district' => $district['full_name'],
             'ward' => $ward_name,
-            'address_detail' => fake()->streetAddress,
-            'default' => fake()->boolean,
+            'address_detail' => fake()->streetAddress(),
+            'default' => fake()->boolean(),
         ];
     }
 
