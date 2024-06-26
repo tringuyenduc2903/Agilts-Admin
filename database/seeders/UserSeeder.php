@@ -9,7 +9,7 @@ use Backpack\PermissionManager\app\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class AdminSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
