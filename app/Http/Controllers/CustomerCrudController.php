@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Gender;
+use App\Enums\Identification;
 use App\Enums\Permission;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
@@ -121,6 +122,10 @@ class CustomerCrudController extends CrudController
             ->label(trans('Addresses'))
             ->type('repeatable')
             ->subfields($this->addressesSubfields(\App\Enums\Address\Customer::values()));
+        CRUD::column('identifications')
+            ->label(trans('Identifications'))
+            ->type('repeatable')
+            ->subfields($this->identificationsSubfields());
 
         // if the model has timestamps, add columns for created_at and updated_at
         if (CRUD::get('show.timestamps') && CRUD::getModel()->usesTimestamps()) {
@@ -129,6 +134,49 @@ class CustomerCrudController extends CrudController
             CRUD::column(CRUD::getModel()->getUpdatedAtColumn())
                 ->label(trans('Updated at'));
         }
+    }
+
+    /**
+     * @return array[]
+     */
+    protected function identificationsSubfields(): array
+    {
+        return [[
+            'name' => 'default',
+            'label' => trans('Set as default'),
+            'type' => 'switch',
+            'wrapper' => [
+                'class' => 'form-group col-sm-12 d-flex justify-content-end',
+            ],
+        ], [
+            'name' => 'type',
+            'label' => trans('Type'),
+            'type' => 'select2_from_array',
+            'options' => Identification::values(),
+            'allows_null' => false,
+        ], [
+            'name' => 'number',
+            'label' => trans('Number'),
+            'type' => 'text',
+        ], [
+            'name' => 'issued_name',
+            'label' => trans('Issued name'),
+            'type' => 'text',
+        ], [
+            'name' => 'issuance_date',
+            'label' => trans('Issued date'),
+            'type' => 'date',
+            'wrapper' => [
+                'class' => 'form-group col-sm-12 col-md-6 mb-3',
+            ],
+        ], [
+            'name' => 'expiry_date',
+            'label' => trans('Expiry date'),
+            'type' => 'date',
+            'wrapper' => [
+                'class' => 'form-group col-sm-12 col-md-6 mb-3',
+            ],
+        ]];
     }
 
     /**
@@ -153,6 +201,9 @@ class CustomerCrudController extends CrudController
         Widget::add()
             ->type('script')
             ->content(resource_path('assets/js/admin/forms/address.js'));
+        Widget::add()
+            ->type('script')
+            ->content(resource_path('assets/js/admin/forms/identifications.js'));
 
         CRUD::setValidation(CustomerRequest::class);
         CRUD::field('name')
@@ -180,5 +231,9 @@ class CustomerCrudController extends CrudController
             ->label(trans('Addresses'))
             ->type('repeatable')
             ->subfields($this->addressesSubfields(\App\Enums\Address\Customer::values()));
+        CRUD::field('identifications')
+            ->label(trans('Identifications'))
+            ->type('repeatable')
+            ->subfields($this->identificationsSubfields());
     }
 }

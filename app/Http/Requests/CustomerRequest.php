@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Enums\Gender;
 use App\Models\Customer;
+use App\Models\Identification;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -98,6 +99,36 @@ class CustomerRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
+            ],
+            'identifications.*.default' => [
+                'required',
+                'boolean',
+            ],
+            'identifications.*.type' => [
+                'required',
+                'integer',
+                Rule::in(\App\Enums\Identification::keys()),
+            ],
+            'identifications.*.number' => [
+                'required',
+                'string',
+                'min:9',
+                'max:100',
+                Rule::unique(Identification::class)->ignore($this->input('id'), 'customer_id'),
+            ],
+            'identifications.*.issued_name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'identifications.*.issuance_date' => [
+                'required',
+                'date',
+            ],
+            'identifications.*.expiry_date' => [
+                'required',
+                'date',
+                'after:identifications.*.issuance_date',
             ],
         ];
     }

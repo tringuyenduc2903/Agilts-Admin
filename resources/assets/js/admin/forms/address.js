@@ -6,12 +6,12 @@ const handleUncheck = (field) => {
     const table = $("[data-repeatable-holder='addresses']").children();
 
     $.each(table, (row) => {
-        const type = crud.field("addresses").subfield("type", row + 1).value;
+        row++;
 
-        if (type === currentType && row + 1 !== field.rowNumber)
-            crud.field("addresses")
-                .subfield("default", row + 1)
-                .uncheck(true);
+        const type = crud.field("addresses").subfield("type", row).value;
+
+        if (type === currentType && row !== field.rowNumber)
+            crud.field("addresses").subfield("default", row).uncheck(true);
     });
 };
 
