@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\Address\Branch;
 use App\Enums\Address\Customer;
 use App\Models\Address;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,7 +18,7 @@ class AddressFactory extends Factory
      * @return array<string, mixed>
      * @throws ConnectionException
      */
-    public function definition(): array
+    public function definition(bool $default = false): array
     {
         $province = $this->getProvince();
         $district = $this->getDistrict($province['id']);
@@ -31,7 +30,7 @@ class AddressFactory extends Factory
             'district' => $district['full_name'],
             'ward' => $ward_name,
             'address_detail' => fake()->streetAddress(),
-            'default' => fake()->boolean(),
+            'default' => $default,
         ];
     }
 
@@ -88,7 +87,7 @@ class AddressFactory extends Factory
     public function branch(): static
     {
         return $this->state(fn(array $attributes) => [
-            'type' => fake()->randomElement(Branch::keys()),
+            'type' => 0,
         ]);
     }
 }

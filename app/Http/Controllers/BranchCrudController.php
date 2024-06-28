@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Enums\Permission;
 use App\Http\Requests\BranchRequest;
 use App\Models\Branch;
-use App\Trait\Controllers\AddressesFieldTrait;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -13,7 +12,6 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Backpack\CRUD\app\Library\Widget;
 use Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation;
 use Backpack\Pro\Http\Controllers\Operations\InlineCreateOperation;
 use Backpack\Pro\Http\Controllers\Operations\TrashOperation;
@@ -32,7 +30,6 @@ class BranchCrudController extends CrudController
     use TrashOperation;
     use BulkTrashOperation;
     use InlineCreateOperation;
-    use AddressesFieldTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -55,11 +52,8 @@ class BranchCrudController extends CrudController
     {
         $this->setupListOperation();
 
-        CRUD::column('addresses')
-            ->label(trans('Addresses'))
-            ->type('repeatable')
-            ->subfields($this->addressesSubfields(\App\Enums\Address\Branch::values()));
-
+        CRUD::column('address.address_detail')
+            ->label(trans('Address detail'));
         CRUD::column('users')
             ->label(trans('backpack::permissionmanager.users'));
 
@@ -85,9 +79,20 @@ class BranchCrudController extends CrudController
         CRUD::column('phone_number')
             ->label(trans('Phone number'))
             ->type('phone');
+        CRUD::column('address.country')
+            ->label(trans('Country'));
+        CRUD::column('address.province')
+            ->label(trans('Province'));
+        CRUD::column('address.district')
+            ->label(trans('District'));
+        CRUD::column('address.ward')
+            ->label(trans('Ward'));
 
         CRUD::filter('name')
             ->label(trans('Name'))
+            ->type('text');
+        CRUD::filter('phone_number')
+            ->label(trans('Phone number'))
             ->type('text');
     }
 
@@ -110,19 +115,29 @@ class BranchCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        Widget::add()
-            ->type('script')
-            ->content(resource_path('assets/js/admin/forms/address.js'));
-
         CRUD::setValidation(BranchRequest::class);
         CRUD::field('name')
             ->label(trans('Name'));
         CRUD::field('phone_number')
             ->label(trans('Phone number'))
             ->type('text');
-        CRUD::field('addresses')
-            ->label(trans('Addresses'))
-            ->type('repeatable')
-            ->subfields($this->addressesSubfields(\App\Enums\Address\Branch::values()));
+        CRUD::field('address.default')
+            ->type('hidden')
+            ->default(true);
+        CRUD::field('address.type')
+            ->type('hidden')
+            ->default(0);
+        CRUD::field('address.country')
+            ->label(trans('Country'))
+            ->default('Việt Nam');
+        CRUD::field('address.province')
+            ->label(trans('Province'));
+        CRUD::field('address.district')
+            ->label(trans('District'));
+        CRUD::field('address.ward')
+            ->label(trans('Ward'));
+        CRUD::field('address.address_detail')
+            ->label(trans('Address detail'))
+            ->type('textarea');
     }
 }

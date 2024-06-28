@@ -14,8 +14,8 @@ class BranchSeeder extends Seeder
     public function run(): void
     {
         Branch::factory(50)->create()->each(function (Branch $branch) {
-            $branch->addresses()->saveMany(
-                Address::factory(2)->branch()->make()
+            $branch->address()->saveMany(
+                Address::factory(1, ['default' => true])->branch()->make()
             );
         });
     }

@@ -33,7 +33,10 @@ class CustomerSeeder extends Seeder
     protected function addresses(Customer $customer): void
     {
         $customer->addresses()->saveMany(
-            Address::factory(2)->customer()->make()
+            Address::factory(1)->customer()->make()
+        );
+        $customer->addresses()->saveMany(
+            Address::factory(1, ['default' => true])->customer()->make()
         );
     }
 }
