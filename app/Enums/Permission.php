@@ -12,7 +12,6 @@ class Permission extends Enum
     const DASHBOARD = 'dashboard';
     const ADMIN_CRUD = 'admin_crud';
     const ROLE_CRUD = 'role_crud';
-    const PERMISSION_CRUD = 'permission_crud';
     const CUSTOMER_CRUD = 'customer_crud';
     const BRANCH_CRUD = 'branch_crud';
 }

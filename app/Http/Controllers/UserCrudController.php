@@ -9,6 +9,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation;
 use Backpack\Pro\Http\Controllers\Operations\FetchOperation;
 use Backpack\Pro\Http\Controllers\Operations\TrashOperation;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
 /**
@@ -110,6 +111,27 @@ class UserCrudController extends \Backpack\PermissionManager\app\Http\Controller
             ->values(backpack_url('user/fetch/branch'))
             ->method('POST')
             ->after('email');
+    }
+
+    /**
+     * Define which routes are needed for this operation.
+     *
+     * @param string $segment Name of the current entity (singular). Used as first URL segment.
+     * @param string $routeName Prefix of the route name.
+     * @param string $controller Name of the current CrudController.
+     */
+    protected function setupTrashRoutes($segment, $routeName, $controller)
+    {
+        Route::delete($segment . '/{id}/trash', [
+            'as' => $routeName . '.trash',
+            'uses' => $controller . '@trash',
+            'operation' => 'trash',
+        ]);
+        Route::put($segment . '/{id}/restore', [
+            'as' => $routeName . '.restore',
+            'uses' => $controller . '@restore',
+            'operation' => 'trash',
+        ]);
     }
 
     /**

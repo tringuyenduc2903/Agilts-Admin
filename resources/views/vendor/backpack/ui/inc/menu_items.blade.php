@@ -20,6 +20,21 @@
             ],
         ],
         [
+            'title' => trans('Branches'),
+            'icon' => 'la la-gear',
+            'columns' => [
+                [
+                    'items' => [
+                        [
+                            'permission' => Permission::BRANCH_CRUD,
+                            'title' => trans('All branches'),
+                            'link' => backpack_url('branch'),
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        [
             'title' => trans('System'),
             'icon' => 'la la-gear',
             'columns' => [
@@ -28,28 +43,13 @@
                     'items' => [
                         [
                             'permission' => Permission::ADMIN_CRUD,
-                            'title' => trans('backpack::permissionmanager.users'),
+                            'title' => trans('All users'),
                             'link' => backpack_url('user'),
                         ],
                         [
                             'permission' => Permission::ROLE_CRUD,
-                            'title' => trans('backpack::permissionmanager.roles'),
+                            'title' => trans('User roles'),
                             'link' => backpack_url('role'),
-                        ],
-                        [
-                            'permission' => Permission::PERMISSION_CRUD,
-                            'title' => trans('backpack::permissionmanager.permission_plural'),
-                            'link' => backpack_url('permission'),
-                        ],
-                    ],
-                ],
-                [
-                    'title' => trans('Others'),
-                    'items' => [
-                        [
-                            'permission' => Permission::BRANCH_CRUD,
-                            'title' => trans('Branches'),
-                            'link' => backpack_url('branch'),
                         ],
                     ],
                 ],

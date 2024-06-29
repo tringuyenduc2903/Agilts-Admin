@@ -20,7 +20,6 @@ Route::prefix(config('backpack.base.route_prefix', 'admin'))
         (array)config('backpack.base.middleware_key', 'admin')
     ))
     ->group(function () {
-        Route::crud('permission', PermissionCrudController::class);
         Route::crud('role', RoleCrudController::class);
         Route::crud('user', UserCrudController::class);
     });

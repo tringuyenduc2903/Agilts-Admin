@@ -20,6 +20,18 @@ Route::prefix(config('backpack.base.route_prefix', 'admin'))
         (array)config('backpack.base.middleware_key', 'admin')
     ))
     ->group(function () {
+        if (config('backpack.base.setup_email_verification_routes', false)) {
+            Route::get('email/verify', [VerifyEmailController::class, 'emailVerificationRequired'])
+                ->middleware(backpack_middleware())
+                ->name('verification.notice');
+            Route::get('email/verify/{id}/{hash}', [VerifyEmailController::class, 'verifyEmail'])
+                ->middleware(backpack_middleware())
+                ->name('verification.verify');
+            Route::post('email/verification-notification', [VerifyEmailController::class, 'resendVerificationEmail'])
+                ->middleware(backpack_middleware())
+                ->name('verification.send');
+        }
+
         Route::post('switch-layout', TablerSwitchLayout::class)
             ->name('tabler.switch.layout');
         Route::crud('customer', CustomerCrudController::class);
