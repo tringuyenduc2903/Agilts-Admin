@@ -36,4 +36,5 @@ Route::prefix(config('backpack.base.route_prefix', 'admin'))
             ->name('tabler.switch.layout');
         Route::crud('customer', CustomerCrudController::class);
         Route::crud('branch', BranchCrudController::class);
+        Route::crud('product', ProductCrudController::class);
     });

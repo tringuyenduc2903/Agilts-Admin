@@ -5,6 +5,21 @@
 
     $menu_items = [
         [
+            'title' => trans('Catalog'),
+            'icon' => 'la la-puzzle-piece',
+            'columns' => [
+                [
+                    'items' => [
+                        [
+                            'permission' => Permission::PRODUCT_CRUD,
+                            'title' => trans('Products'),
+                            'link' => backpack_url('product'),
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        [
             'title' => trans('Customers'),
             'icon' => 'la la-user',
             'columns' => [
@@ -21,7 +36,7 @@
         ],
         [
             'title' => trans('Branches'),
-            'icon' => 'la la-gear',
+            'icon' => 'la la-shopping-cart',
             'columns' => [
                 [
                     'items' => [

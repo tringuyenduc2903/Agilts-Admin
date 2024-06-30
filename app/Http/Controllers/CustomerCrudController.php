@@ -257,7 +257,7 @@ class CustomerCrudController extends CrudController
             ->content(resource_path('assets/js/admin/forms/address.js'));
         Widget::add()
             ->type('script')
-            ->content(resource_path('assets/js/admin/forms/identifications.js'));
+            ->content(resource_path('assets/js/admin/forms/identification.js'));
 
         CRUD::setValidation(CustomerRequest::class);
         CRUD::field('name')
@@ -280,14 +280,17 @@ class CustomerCrudController extends CrudController
             ->options(array_combine(
                 timezone_identifiers_list(),
                 timezone_identifiers_list()
-            ));
+            ))
+            ->default(config('app.timezone'));
         CRUD::field('addresses')
             ->label(trans('Addresses'))
             ->type('repeatable')
-            ->subfields($this->addressesSubfields(CustomerAddress::values()));
+            ->subfields($this->addressesSubfields(CustomerAddress::values()))
+            ->reorder(false);
         CRUD::field('identifications')
             ->label(trans('Identifications'))
             ->type('repeatable')
-            ->subfields($this->identificationsSubfields());
+            ->subfields($this->identificationsSubfields())
+            ->reorder(false);
     }
 }
