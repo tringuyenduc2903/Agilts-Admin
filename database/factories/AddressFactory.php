@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\Address\Customer;
+use App\Enums\CustomerAddress;
 use App\Models\Address;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Http\Client\ConnectionException;
@@ -77,7 +77,7 @@ class AddressFactory extends Factory
     public function customer(): static
     {
         return $this->state(fn(array $attributes) => [
-            'type' => fake()->randomElement(Customer::keys()),
+            'type' => fake()->randomElement(CustomerAddress::keys()),
         ]);
     }
 

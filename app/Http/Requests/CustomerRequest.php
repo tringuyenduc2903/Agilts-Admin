@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\CustomerAddress;
 use App\Enums\Gender;
 use App\Models\Customer;
 use App\Models\Identification;
@@ -73,7 +74,7 @@ class CustomerRequest extends FormRequest
             'addresses.*.type' => [
                 'required',
                 'integer',
-                Rule::in(\App\Enums\Address\Customer::keys()),
+                Rule::in(CustomerAddress::keys()),
             ],
             'addresses.*.country' => [
                 'required',

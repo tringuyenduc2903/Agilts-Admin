@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CustomerAddress;
 use App\Enums\Gender;
 use App\Enums\Identification;
 use App\Enums\Permission;
@@ -119,7 +120,7 @@ class CustomerCrudController extends CrudController
         CRUD::column('addresses')
             ->label(trans('Addresses'))
             ->type('repeatable')
-            ->subfields($this->addressesSubfields(\App\Enums\Address\Customer::values()));
+            ->subfields($this->addressesSubfields(CustomerAddress::values()));
         CRUD::column('identifications')
             ->label(trans('Identifications'))
             ->type('repeatable')
@@ -283,7 +284,7 @@ class CustomerCrudController extends CrudController
         CRUD::field('addresses')
             ->label(trans('Addresses'))
             ->type('repeatable')
-            ->subfields($this->addressesSubfields(\App\Enums\Address\Customer::values()));
+            ->subfields($this->addressesSubfields(CustomerAddress::values()));
         CRUD::field('identifications')
             ->label(trans('Identifications'))
             ->type('repeatable')
