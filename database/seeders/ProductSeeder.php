@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\ProductOption;
@@ -16,9 +17,17 @@ class ProductSeeder extends Seeder
     {
         Product::factory(50)
             ->has(
-                ProductOption::factory(5)->has(ProductDetail::factory(100), 'details'),
+                ProductOption::factory(5)->has(
+                    ProductDetail::factory(100),
+                    'details'
+                ),
                 'options'
             )
-            ->create();
+            ->create()
+            ->each(function (Product $product) {
+                return $product->categories()->saveMany(
+                    Category::inRandomOrder()->limit(5)->get()
+                );
+            });
     }
 }

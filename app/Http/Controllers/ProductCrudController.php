@@ -94,6 +94,9 @@ class ProductCrudController extends CrudController
         CRUD::column('name')
             ->label(trans('Name'))
             ->tab(trans('Basic information'));
+        CRUD::column('categories')
+            ->label(trans('Categories'))
+            ->tab(trans('Basic information'));
         CRUD::column('enabled')
             ->label(trans('Enable'))
             ->type('switch')
@@ -117,6 +120,15 @@ class ProductCrudController extends CrudController
         CRUD::filter('name')
             ->type('text')
             ->label(trans('Name'));
+        CRUD::filter('categories')
+            ->type('select2_multiple')
+            ->values(Category::all()->pluck('name', 'id')->toArray())
+            ->whenActive(fn(string $values) => CRUD::addClause(
+                'whereHas',
+                'categories',
+                fn(Builder $query): Builder => $query->whereIn('categories.id', json_decode($values))
+            ))
+            ->label(trans('Categories'));
         CRUD::filter('disabled')
             ->label(trans('Disabled'))
             ->type('simple')
