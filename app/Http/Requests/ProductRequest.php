@@ -45,6 +45,12 @@ class ProductRequest extends FormRequest
                 'string',
                 'max:4294967295',
             ],
+            'categories' => [
+                'nullable',
+                'sometimes',
+                'array',
+                Rule::exists(Category::class, 'id'),
+            ],
             'visibility' => [
                 'required',
                 'integer',

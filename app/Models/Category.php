@@ -6,10 +6,9 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class Category extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -22,27 +21,13 @@ class Product extends Model
      */
     protected $fillable = [
         'name',
-        'description',
-        'enabled',
-        'visibility',
-        'status',
-        'type',
-        'specifications',
     ];
-
-    /**
-     * @return HasMany
-     */
-    public function options(): HasMany
-    {
-        return $this->hasMany(ProductOption::class);
-    }
 
     /**
      * @return BelongsToMany
      */
-    public function categories(): BelongsToMany
+    public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'categories_products');
+        return $this->belongsToMany(Product::class, 'categories_products');
     }
 }

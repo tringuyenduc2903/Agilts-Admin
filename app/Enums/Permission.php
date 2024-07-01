@@ -16,4 +16,5 @@ class Permission extends Enum
     const BRANCH_CRUD = 'branch_crud';
     const PRODUCT_CRUD = 'product_crud';
     const INVENTORY_CRUD = 'inventory_crud';
+    const CATEGORY_CRUD = 'category_crud';
 }
