@@ -15,6 +15,11 @@
                             'title' => trans('Products'),
                             'link' => backpack_url('product'),
                         ],
+                        [
+                            'permission' => Permission::INVENTORY_CRUD,
+                            'title' => trans('Inventory'),
+                            'link' => backpack_url('inventory'),
+                        ],
                     ],
                 ],
             ],

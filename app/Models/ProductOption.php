@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductOption extends Model
 {
@@ -22,4 +24,20 @@ class ProductOption extends Model
         'specifications',
         'product_id',
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function details(): HasMany
+    {
+        return $this->hasMany(ProductDetail::class);
+    }
 }

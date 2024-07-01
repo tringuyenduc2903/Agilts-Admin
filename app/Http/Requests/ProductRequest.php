@@ -40,7 +40,7 @@ class ProductRequest extends FormRequest
                 'max:50',
             ],
             'description' => [
-                'required',
+                'nullable',
                 'string',
                 'max:4294967295',
             ],

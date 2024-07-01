@@ -193,5 +193,10 @@ return [
         'options.*.price' => 'giá',
         'options.*.color' => 'màu sắc',
         'options.*.model_name' => 'tên mẫu',
+        'details' => 'các chi tiết',
+        'details.*.chassis_number' => 'số khung',
+        'details.*.engine_number' => 'số máy',
+        'details.*.status' => 'trạng thái',
+        'details.*.branch' => 'chi nhánh',
     ],
 ];

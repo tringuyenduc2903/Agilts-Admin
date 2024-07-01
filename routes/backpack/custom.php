@@ -37,4 +37,5 @@ Route::prefix(config('backpack.base.route_prefix', 'admin'))
         Route::crud('customer', CustomerCrudController::class);
         Route::crud('branch', BranchCrudController::class);
         Route::crud('product', ProductCrudController::class);
+        Route::crud('inventory', InventoryCrudController::class);
     });

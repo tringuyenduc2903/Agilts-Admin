@@ -94,5 +94,13 @@
     "Price": "Giá",
     "Price preview": "Xem trước giá",
     "Color": "Màu sắc",
-    "Model name": "Tên mẫu"
+    "Model name": "Tên mẫu",
+    "Inventory": "Kho",
+    "Details": "Các chi tiết",
+    "Chassis number": "Số khung",
+    "Engine number": "Số máy",
+    "Storage": " Lưu kho",
+    "Sold": "Đã bán",
+    "Number of products in stock": "Số sản phẩm lưu kho",
+    "Number of products sold": "Số sản phẩm đã bán"
 }

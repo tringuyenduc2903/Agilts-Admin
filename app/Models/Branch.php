@@ -40,4 +40,12 @@ class Branch extends Model
     {
         return $this->morphOne(Address::class, 'addressable');
     }
+
+    /**
+     * @return HasMany
+     */
+    protected function details(): HasMany
+    {
+        return $this->hasMany(ProductDetail::class);
+    }
 }

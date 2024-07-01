@@ -174,7 +174,7 @@ class ProductCrudController extends CrudController
             'name' => 'price',
             'label' => trans('Price'),
             'type' => 'number',
-            'prefix' => 'VND',
+            'prefix' => 'VND' . ' ',
             'default' => 0,
         ], [
             'name' => 'price_preview',

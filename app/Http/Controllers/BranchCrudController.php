@@ -54,8 +54,6 @@ class BranchCrudController extends CrudController
 
         CRUD::column('address.address_detail')
             ->label(trans('Address detail'));
-        CRUD::column('users')
-            ->label(trans('backpack::permissionmanager.users'));
 
         // if the model has timestamps, add columns for created_at and updated_at
         if (CRUD::get('show.timestamps') && CRUD::getModel()->usesTimestamps()) {
@@ -87,6 +85,12 @@ class BranchCrudController extends CrudController
             ->label(trans('District'));
         CRUD::column('address.ward')
             ->label(trans('Ward'));
+        CRUD::column('users')
+            ->label(trans('backpack::permissionmanager.users'))
+            ->type('relationship_count');
+        CRUD::column('details')
+            ->label(trans('Product'))
+            ->type('relationship_count');
 
         CRUD::filter('name')
             ->label(trans('Name'))
