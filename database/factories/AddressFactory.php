@@ -15,6 +15,7 @@ class AddressFactory extends Factory
     /**
      * Define the model's default state.
      *
+     * @param bool $default
      * @return array<string, mixed>
      * @throws ConnectionException
      */

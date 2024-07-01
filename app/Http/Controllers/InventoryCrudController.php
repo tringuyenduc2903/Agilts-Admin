@@ -6,6 +6,7 @@ use App\Enums\Permission;
 use App\Enums\ProductDetailStatus;
 use App\Http\Requests\InventoryRequest;
 use App\Models\Branch;
+use App\Models\Product;
 use App\Models\ProductOption;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -87,12 +88,37 @@ class InventoryCrudController extends CrudController
     {
         CRUD::column('product')
             ->label(trans('Product'));
+        CRUD::column('sku')
+            ->label(trans('SKU'));
         CRUD::column('price')
             ->label(trans('Price'))
             ->type('number')
             ->prefix('VND' . ' ');
         CRUD::column('model_name')
             ->label(trans('Model name'));
+        CRUD::filter('product_id')
+            ->label(trans('Product'))
+            ->type('select2_ajax')
+            ->values(backpack_url('inventory/fetch/product'))
+            ->method('POST');
+        CRUD::filter('sku')
+            ->label(trans('SKU'))
+            ->type('text');
+        CRUD::filter('price')
+            ->label(trans('Price'))
+            ->type('range')
+            ->whenActive(function ($value) {
+                $range = json_decode($value);
+
+                if ($range->from)
+                    CRUD::addClause('where', 'price', '>=', (float)$range->from);
+
+                if ($range->to)
+                    CRUD::addClause('where', 'price', '<=', (float)$range->to);
+            });
+        CRUD::filter('model_name')
+            ->label(trans('Model name'))
+            ->type('text');
     }
 
     /**
@@ -150,5 +176,10 @@ class InventoryCrudController extends CrudController
     protected function fetchBranch()
     {
         return $this->fetch(Branch::class);
+    }
+
+    protected function fetchProduct()
+    {
+        return $this->fetch(Product::class);
     }
 }

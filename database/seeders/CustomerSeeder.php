@@ -13,30 +13,19 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
-        Customer::factory(5)->create()->each(function (Customer $customer) {
-            $this->addresses($customer);
-        });
+        Customer::factory(5)
+            ->has(Address::factory(1)->customer())
+            ->has(Address::factory(1, ['default' => true])->customer())
+            ->create();
 
-        Customer::factory(5)->emailUnverified()->create()->each(function (Customer $customer) {
-            $this->addresses($customer);
-        });
+        Customer::factory(5)->emailUnverified()
+            ->has(Address::factory(1)->customer())
+            ->has(Address::factory(1, ['default' => true])->customer())
+            ->create();
 
-        Customer::factory(5)->phoneNumberUnverified()->create()->each(function (Customer $customer) {
-            $this->addresses($customer);
-        });
-    }
-
-    /**
-     * @param Customer $customer
-     * @return void
-     */
-    protected function addresses(Customer $customer): void
-    {
-        $customer->addresses()->saveMany(
-            Address::factory(1)->customer()->make()
-        );
-        $customer->addresses()->saveMany(
-            Address::factory(1, ['default' => true])->customer()->make()
-        );
+        Customer::factory(5)->phoneNumberUnverified()
+            ->has(Address::factory(1)->customer())
+            ->has(Address::factory(1, ['default' => true])->customer())
+            ->create();
     }
 }
