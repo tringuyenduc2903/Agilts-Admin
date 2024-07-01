@@ -18,7 +18,7 @@ class BranchFactory extends Factory
     public function definition(): array
     {
         $app_name = config('app.name');
-        $random_number = fake()->randomNumber();
+        $random_number = fake()->randomNumber(4);
 
         return [
             'name' => "$app_name $random_number",

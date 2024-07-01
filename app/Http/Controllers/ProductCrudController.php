@@ -7,6 +7,7 @@ use App\Enums\ProductStatus;
 use App\Enums\ProductType;
 use App\Enums\ProductVisibility;
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -18,6 +19,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation;
 use Backpack\Pro\Http\Controllers\Operations\TrashOperation;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class ProductCrudController
@@ -54,6 +56,11 @@ class ProductCrudController extends CrudController
     {
         $this->setupListOperation();
 
+        CRUD::column('description')
+            ->label(trans('Description'))
+            ->type('tinymce')
+            ->after('name')
+            ->tab(trans('Basic information'));
         CRUD::column('specifications')
             ->label(trans('Specifications'))
             ->type('repeatable')
@@ -87,9 +94,6 @@ class ProductCrudController extends CrudController
         CRUD::column('name')
             ->label(trans('Name'))
             ->tab(trans('Basic information'));
-        CRUD::column('description')
-            ->label(trans('Description'))
-            ->tab(trans('Basic information'));
         CRUD::column('enabled')
             ->label(trans('Enable'))
             ->type('switch')
@@ -113,18 +117,11 @@ class ProductCrudController extends CrudController
         CRUD::filter('name')
             ->type('text')
             ->label(trans('Name'));
-        CRUD::filter('description')
-            ->type('text')
-            ->label(trans('Description'));
         CRUD::filter('disabled')
             ->label(trans('Disabled'))
             ->type('simple')
-            ->whenActive(function () {
-                CRUD::addClause('where', 'enabled', false);
-            })
-            ->whenInactive(function () {
-                CRUD::addClause('where', 'enabled', true);
-            });
+            ->whenActive(fn() => CRUD::addClause('where', 'enabled', false))
+            ->whenInactive(fn() => CRUD::addClause('where', 'enabled', true));
         CRUD::filter('visibility')
             ->label(trans('Visibility'))
             ->type('select2')
@@ -238,6 +235,10 @@ class ProductCrudController extends CrudController
             ->tab(trans('Basic information'));
         CRUD::field('description')
             ->label(trans('Description'))
+            ->type('tinymce')
+            ->tab(trans('Basic information'));
+        CRUD::field('categories')
+            ->label(trans('Categories'))
             ->tab(trans('Basic information'));
         CRUD::field('visibility')
             ->label(trans('Visibility'))

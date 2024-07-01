@@ -23,7 +23,7 @@ class ProductDetailFactory extends Factory
             'chassis_number' => fake()->unique()->randomNumber(9),
             'engine_number' => fake()->unique()->randomNumber(9),
             'status' => fake()->randomElement(ProductDetailStatus::keys()),
-            'branch_id' => Branch::all()->random()->id,
+            'branch_id' => Branch::inRandomOrder()->first()->id,
         ];
     }
 }

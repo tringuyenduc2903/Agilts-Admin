@@ -89,7 +89,7 @@ class BranchCrudController extends CrudController
             ->label(trans('backpack::permissionmanager.users'))
             ->type('relationship_count');
         CRUD::column('details')
-            ->label(trans('Product'))
+            ->label(trans('Products'))
             ->type('relationship_count');
 
         CRUD::filter('name')

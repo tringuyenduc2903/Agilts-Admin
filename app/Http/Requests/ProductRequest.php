@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Enums\ProductStatus;
 use App\Enums\ProductType;
 use App\Enums\ProductVisibility;
+use App\Models\Category;
 use App\Models\ProductOption;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
@@ -37,7 +38,7 @@ class ProductRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'max:50',
+                'max:255',
             ],
             'description' => [
                 'nullable',
